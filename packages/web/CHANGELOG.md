@@ -1,5 +1,11 @@
 # @cfworker/web
 
+## 7.1.0
+
+### Minor Changes
+
+- 342917c: Add `Router.use` for middleware shared by subsequently registered routes.
+
 ## 7.0.1
 
 ### Patch Changes
