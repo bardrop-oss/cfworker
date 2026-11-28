@@ -93,9 +93,16 @@ export const defaultRouterOptions: RouterOptions = {
 
 export class Router {
   private readonly routes: Route[];
+  private readonly routeMiddleware: Middleware[];
 
   constructor(private readonly options: RouterOptions = defaultRouterOptions) {
     this.routes = [];
+    this.routeMiddleware = [];
+  }
+
+  public use(middleware: Middleware): Router {
+    this.routeMiddleware.push(middleware);
+    return this;
   }
 
   public get(pathname: string, ...middleware: Middleware[]): Router {
@@ -149,7 +156,7 @@ export class Router {
   ): Router {
     this.routes.push({
       conditions,
-      middleware: composeMiddleware(middleware)
+      middleware: composeMiddleware([...this.routeMiddleware, ...middleware])
     });
     return this;
   }
